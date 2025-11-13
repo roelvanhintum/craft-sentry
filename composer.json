@@ -1,5 +1,5 @@
 {
-    "name": "born05/craft-sentry",
+    "name": "roelvanhintum/craft-sentry",
     "description": "Pushes Craft CMS errors to Sentry.",
     "type": "craft-plugin",
     "keywords": [
@@ -11,11 +11,15 @@
         "sentry sdk"
     ],
     "support": {
-        "docs": "https://github.com/born05/craft-sentry/blob/master/README.md",
-        "issues": "https://github.com/born05/craft-sentry/issues"
+        "docs": "https://github.com/roelvanhintum/craft-sentry/blob/master/README.md",
+        "issues": "https://github.com/roelvanhintum/craft-sentry/issues"
     },
     "license": "MIT",
     "authors": [
+        {
+            "name": "Roel van Hintum",
+            "homepage": "https://roel.vanhintum.eu/"
+        },
         {
             "name": "Born05",
             "homepage": "https://www.born05.com/"
@@ -26,9 +30,13 @@
         "craftcms/cms": "^4.0.0-alpha|^5.0.0-beta.1",
         "sentry/sdk": "^4.0.0"
     },
+    "require-dev": {
+        "craftcms/phpstan": "dev-main",
+        "squizlabs/php_codesniffer": "3.*"
+    },
     "autoload": {
         "psr-4": {
-          "born05\\sentry\\": "src/"
+            "roelvanhintum\\sentry\\": "src/"
         }
     },
     "extra": {
@@ -36,8 +44,8 @@
         "handle": "sentry-sdk",
         "hasCpSettings": false,
         "hasCpSection": false,
-        "changelogUrl": "https://raw.githubusercontent.com/born05/craft-sentry/master/CHANGELOG.md",
-        "documentationUrl": "https://github.com/born05/craft-sentry/blob/master/README.md"
+        "changelogUrl": "https://raw.githubusercontent.com/roelvanhintum/craft-sentry/master/CHANGELOG.md",
+        "documentationUrl": "https://github.com/roelvanhintum/craft-sentry/blob/master/README.md"
     },
     "config": {
         "allow-plugins": {

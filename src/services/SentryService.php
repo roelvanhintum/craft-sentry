@@ -1,8 +1,8 @@
 <?php
 
-namespace born05\sentry\services;
+namespace roelvanhintum\sentry\services;
 
-use born05\sentry\Plugin as SentryPlugin;
+use roelvanhintum\sentry\Plugin as SentryPlugin;
 
 use Craft;
 use craft\base\Component;

@@ -1,6 +1,6 @@
 <?php
 
-namespace born05\sentry\models;
+namespace roelvanhintum\sentry\models;
 
 use craft\base\Model;
 

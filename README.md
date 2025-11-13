@@ -5,20 +5,24 @@ Pushes Craft CMS errors to [Sentry](https://sentry.io/).
 ## Installation
 
 ### Plugin Store
+
 1. Search for 'Sentry SDK'.
 2. Hit install
 3. Create a config file as explained below.
 
 ### Composer
-1. Run: `composer require born05/craft-sentry`
+
+1. Run: `composer require roelvanhintum/craft-sentry`
 2. Hit install in Admin > Settings > Plugins
 3. Create a config file as explained below.
 
 ## Requirements
+
 - Craft 4.0.0 and up
 - PHP 8.0.2 and up
 
 ## Configuring Sentry
+
 Create a `config/sentry-sdk.php` config file with the following contents:
 
 ```php
@@ -44,10 +48,5 @@ return [
 ```
 
 ## Credits
+
 Based upon the sentry plugin by [Luke Youell](https://github.com/lukeyouell).
-
-## License
-
-Copyright © [Born05](https://www.born05.com/)
-
-See [license](https://github.com/born05/craft-sentry/blob/master/LICENSE.md)

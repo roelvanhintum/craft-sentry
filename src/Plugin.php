@@ -1,8 +1,9 @@
 <?php
-namespace born05\sentry;
 
-use born05\sentry\models\Settings;
-use born05\sentry\services\SentryService;
+namespace roelvanhintum\sentry;
+
+use roelvanhintum\sentry\models\Settings;
+use roelvanhintum\sentry\services\SentryService;
 
 use Craft;
 use craft\helpers\App;
@@ -131,7 +132,7 @@ class Plugin extends CraftPlugin
                         window.sentryOnLoad = function () {
                             Sentry.init({
                             release: '$settings->release',
-                            environment: '".App::env('CRAFT_ENVIRONMENT')."',
+                            environment: '" . App::env('CRAFT_ENVIRONMENT') . "',
                             ignoreErrors: $ignoreErrors,
                             });
                         };", View::POS_END, $this->getScriptOptions());
@@ -155,7 +156,7 @@ class Plugin extends CraftPlugin
         Event::on(
             ErrorHandler::class,
             ErrorHandler::EVENT_BEFORE_HANDLE_EXCEPTION,
-            function(ExceptionEvent $event) {
+            function (ExceptionEvent $event) {
                 $this->sentry->handleException($event->exception);
             }
         );
@@ -166,11 +167,12 @@ class Plugin extends CraftPlugin
         return $this->sentry;
     }
 
-    private function getScriptOptions(): array {
+    private function getScriptOptions(): array
+    {
         $options = [];
 
-        if (class_exists('\born05\contentsecuritypolicy\Plugin')) {
-            $options['nonce'] = \born05\contentsecuritypolicy\Plugin::$plugin->headers->registerNonce('script-src');
+        if (class_exists('\roelvanhintum\contentsecuritypolicy\Plugin')) {
+            $options['nonce'] = \roelvanhintum\contentsecuritypolicy\Plugin::$plugin->headers->registerNonce('script-src');
         }
 
         return $options;
