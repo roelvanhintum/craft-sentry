@@ -126,6 +126,7 @@ class Plugin extends CraftPlugin
                         $settings = $this->getSettings();
                         $view = Craft::$app->getView();
                         $ignoreErrors = json_encode($settings->ignoreErrors);
+                        $dataStorageLocationSubdomain = $settings->dataStorageLocation == 'EU' ? 'js-de' : 'js';
 
                         $view->registerScript("
                         // Configure sentryOnLoad before adding the Loader Script
@@ -141,7 +142,7 @@ class Plugin extends CraftPlugin
                             "",
                             View::POS_END,
                             array_merge([
-                                'src' => "https://js.sentry-cdn.com/$settings->clientKey.min.js",
+                                'src' => "https://".$dataStorageLocationSubdomain.".sentry-cdn.com" ."/$settings->clientKey.min.js",
                                 'crossorigin' => 'anonymous',
                             ], $this->getScriptOptions())
                         );

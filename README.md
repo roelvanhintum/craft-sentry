@@ -34,6 +34,7 @@ return [
         'anonymous'      => false, // Determines to log user info or not
         'clientDsn'      => getenv('SENTRY_DSN') ?: 'https://example@sentry.io/123456789', // Set as string or use environment variable.
         'clientKey'      => getenv('SENTRY_CLIENT_KEY') ?: 'z987654321a', // https://js.sentry-cdn.com/z987654321a.min.js
+        'dataStorageLocation' => getenv('SENTRY_DATA_STORAGE_LOCATION') ?: 'US', // Can be either US or EU. Default is US if not specified
         'excludedCodes'  => ['400', '404', '429'],
         'release'        => getenv('SENTRY_RELEASE') ?: null, // Release number/name used by sentry.
         'reportJsErrors' => false,
