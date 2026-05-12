@@ -39,6 +39,7 @@ return [
         'release'        => getenv('SENTRY_RELEASE') ?: null, // Release number/name used by sentry.
         'reportJsErrors' => false,
         'sampleRate'     => 1.0,
+        'allowUrls'      => [], // URL string or regex. JS errors that have been created on these will be sent to Sentry.
         'ignoreErrors'   => [
           // Email link Microsoft Outlook crawler compatibility error
           // cf. https://forum.sentry.io/t/unhandledrejection-non-error-promise-rejection-captured-with-value/14062

@@ -51,6 +51,12 @@ class Plugin extends CraftPlugin
         $info = $app->getInfo();
         $settings = $this->getSettings();
 
+        if(!$settings->validate()) {
+            Craft::error('Sentry settings are invalid: ' . json_encode($settings->getErrors()), $this->handle);
+            throw new Exception('Invalid Sentry plugin settings: '. json_encode($settings->getErrors()));
+            return;
+        }
+
         if (!$this->isInstalled || !$settings->enabled) return;
 
         if (!$settings->clientDsn) {
@@ -125,16 +131,31 @@ class Plugin extends CraftPlugin
                     function (TemplateEvent $event) {
                         $settings = $this->getSettings();
                         $view = Craft::$app->getView();
-                        $ignoreErrors = json_encode($settings->ignoreErrors);
+
+                        $regexMap = [];
+
+                        $allowUrls = array_map(function($url) use (&$regexMap) {
+                            if (preg_match('/^\/(.+)\/([gimsuy]*)$/', $url, $m)) {
+                                $key = '__REGEX_' . count($regexMap) . '__';
+                                $regexMap['"' . $key . '"'] = '/' . $m[1] . '/' . $m[2];
+                                return $key;
+                            }
+                            return $url;
+                        }, $settings->allowUrls ?: []);
+
+                        $allowUrls = json_encode($allowUrls, JSON_UNESCAPED_SLASHES);
+                        $allowUrls = str_replace(array_keys($regexMap), array_values($regexMap), $allowUrls);
+
                         $dataStorageLocationSubdomain = $settings->dataStorageLocation == 'EU' ? 'js-de' : 'js';
 
                         $view->registerScript("
                         // Configure sentryOnLoad before adding the Loader Script
                         window.sentryOnLoad = function () {
                             Sentry.init({
-                            release: '$settings->release',
-                            environment: '" . App::env('CRAFT_ENVIRONMENT') . "',
-                            ignoreErrors: $ignoreErrors,
+                                release: '$settings->release',
+                                environment: '" . App::env('CRAFT_ENVIRONMENT') . "',
+                                ignoreErrors: " . json_encode($settings->ignoreErrors) . ",
+                                allowUrls: $allowUrls
                             });
                         };", View::POS_END, $this->getScriptOptions());
 
